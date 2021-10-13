@@ -7,6 +7,7 @@ import {
   VictoryGroup,
   VictoryLabel,
   VictoryZoomContainer,
+  VictoryLegend,
 } from "victory";
 
 const Student = ({ match }) => {
@@ -14,40 +15,47 @@ const Student = ({ match }) => {
   const naam = match.params.studentNaam;
   const student = studenten.find((student) => student.studentNaam === naam);
 
-  const opdrachtenMoeilijk = student.opdrachten.map((opdracht) => {
+  const opdrachten = student.opdrachten.map((opdracht) => {
     const naam = opdracht.opdracht;
     const opdrachtNaam =
       naam.length > 6 ? naam.substr(0, naam.indexOf(" ")) : naam;
 
     return {
       opdracht: opdrachtNaam,
-      moeilijk: opdracht.moeilijk,
-    };
-  });
-
-  const opdrachtenLeuk = student.opdrachten.map((opdracht) => {
-    const naam = opdracht.opdracht;
-    const opdrachtNaam =
-      naam.length > 6 ? naam.substr(0, naam.indexOf(" ")) : naam;
-    return {
-      opdracht: opdrachtNaam,
-      leuk: opdracht.leuk,
+      moeilijk: parseInt(opdracht.moeilijk),
+      leuk: parseInt(opdracht.leuk)
     };
   });
 
   return (
     <div>
-      <h3 className="studentName">{naam}</h3>
+       <h3 className="studentName">Opdracht evaluties van {student.studentNaam}</h3>
       <VictoryChart
+        domainPadding={{ x: 5 }}
         domain={{ y: [0, 5]}}
         width={1200}
         containerComponent={
-          <VictoryZoomContainer zoomDimension="x" allowPan={false} />
-        }
+          <VictoryZoomContainer 
+              zoomDimension="x" 
+              allowPan={false} 
+          />
+        }      
       >
+         <VictoryLegend x={60} y={0} 
+        title="legenda"
+        centerTitle
+        orientation="horizontal"
+        gutter={30}
+        style={{ border: { stroke: "rgb(21, 104, 172" }, title: {fontSize: 20 } }}
+        data={[
+          { name: "moeilijk", symbol: {fill:  "rgb(73, 151, 216)"}},
+          {name: "leuk", symbol: {fill: "rgb(218, 161, 247)"}}
+        ]}
+      />
+
         <VictoryGroup offset={5}>
           <VictoryBar
-            data={opdrachtenMoeilijk}
+            data={opdrachten}
             x="opdracht"
             y="moeilijk"
             style={{
@@ -59,7 +67,7 @@ const Student = ({ match }) => {
             barWidth={5}
           />
           <VictoryBar
-            data={opdrachtenLeuk}
+            data={opdrachten}
             x="opdracht"
             y="leuk"
             style={{
@@ -71,13 +79,23 @@ const Student = ({ match }) => {
             barWidth={5}
           />
         </VictoryGroup>
+        
         <VictoryAxis
-          tickLabelComponent={<VictoryLabel angle={40} textAnchor="start" />}
+            tickLabelComponent={<VictoryLabel 
+                                  angle={40} 
+                                  textAnchor="start" 
+                                />}
         />
 
-        <VictoryAxis tickFormat={[1, 2, 3, 4, 5]}  dependentAxis />
+        <VictoryAxis 
+            tickFormat={[1, 2, 3, 4, 5]}
+            tickValues={[1, 2, 3, 4, 5]}
+            dependentAxis 
+        />
+      
       </VictoryChart>
     </div>
+
   );
 };
 

@@ -2,7 +2,6 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
-import Studenten from "./components/Studenten";
 import Student from "./components/Student";
 
 function App() {
@@ -14,9 +13,9 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
           </Switch>
-          <Switch>
+          {/* <Switch>
             <Route path="/studenten" exact component={Studenten} />
-          </Switch>
+          </Switch> */}
           <Switch>
             <Route path="/:studentNaam" component={Student} />
           </Switch>
