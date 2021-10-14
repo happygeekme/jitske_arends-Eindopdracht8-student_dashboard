@@ -14,12 +14,11 @@ function Nav() {
 
   return (
     <nav>
-      <ul className="nav-links">
-        <Link style={navStyle} to="/">
+      <Link style={navStyle} to="/">
           <img src={winc} width="60" alt="logo" className="logo" />
         </Link>
-
-        {studenten.map((student, index) => (
+      <ul className="nav-links">
+          {studenten.map((student, index) => (
           <Link key={index} style={navStyle} to={`/${student.studentNaam}`}>
             <li>{student.studentNaam}</li>
           </Link>

@@ -9,21 +9,31 @@ nav {
   min-height: 10vh;
   background-color: rgb(73, 151, 216);
   color: white;
+  height: 100px;
 }
 
 .nav-links {
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   list-style: none;
+  flex-shrink: 2; 
+  flex-wrap: wrap;
 }
 
 .logo {
   filter: brightness(0)invert(1);
-  
+  justify-self: flex-start;
+  position: relative;
+  flex-shrink: 1;
+  margin: 0
 }
 
 .studentName {
   color: rgb(21, 104, 172)
+}
+
+.selectWhatToShow {
+  padding: 20px;
 }
